@@ -1,0 +1,142 @@
+<%= form_with(model: estagio, local: true) do |form| %>
+  <% if estagio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estagio.errors.count, "error") %> prohibited this estagio from being saved:</h2>
+
+      <ul>
+      <% estagio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :naturalidade %>
+    <%= form.text_field :naturalidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sexo %>
+    <%= form.text_field :sexo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rg %>
+    <%= form.text_field :rg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orgaoEmissao %>
+    <%= form.text_field :orgaoEmissao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpf %>
+    <%= form.text_field :cpf %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tel1 %>
+    <%= form.text_field :tel1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tel2 %>
+    <%= form.text_field :tel2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cep %>
+    <%= form.text_field :cep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :logradouro %>
+    <%= form.text_field :logradouro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :num %>
+    <%= form.text_field :num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bairro %>
+    <%= form.text_field :bairro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cidade %>
+    <%= form.text_field :cidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estado %>
+    <%= form.text_field :estado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :area %>
+    <%= form.text_field :area %>
+  </div>
+
+  <div class="field">
+    <%= form.label :instituicao %>
+    <%= form.text_field :instituicao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :curso %>
+    <%= form.text_field :curso %>
+  </div>
+
+  <div class="field">
+    <%= form.label :necEsp %>
+    <%= form.text_field :necEsp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :desNecEsp %>
+    <%= form.text_field :desNecEsp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pag %>
+    <%= form.text_field :pag %>
+  </div>
+
+  <div class="field">
+    <%= form.label :durCurso %>
+    <%= form.text_field :durCurso %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sem %>
+    <%= form.text_field :sem %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dtNasc %>
+    <%= form.text_field :dtNasc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dtEmissao %>
+    <%= form.text_field :dtEmissao %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
