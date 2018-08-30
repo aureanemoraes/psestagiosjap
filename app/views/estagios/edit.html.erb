@@ -1,6 +1,15 @@
-<h1>Editing Estagio</h1>
+<%- model_class = Estagio -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              estagios_path, :class => 'links'  %>
+<%= link_to 'Comprovante de Inscrição', export_estagio_path(@estagio),
+	           :class => 'links2'%>
 
-<%= render 'form', estagio: @estagio %>
+<% if current_user.admin? or current_user.admin2? or current_user.id == @estagio.user_id%>
+  <%= render :partial => 'form' %>
+<% else %>
+  Você não pode alterar essa inscrição.
+<% end %>
 
-<%= link_to 'Show', @estagio %> |
-<%= link_to 'Back', estagios_path %>

@@ -1,75 +1,221 @@
-<p id="notice"><%= notice %></p>
+<% if current_user.admin? or current_user.admin2? %>
+  <h1>Lista Inscritos no PS Estágio SJAP</h1>
 
-<h1>Estagios</h1>
+<% @estagios.each do |estagio| %>
+<% @a = @a + 1%>
+<% end %>
+  
+  <p>
+  <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= select_tag :searcha, options_for_select(@estagios.collect{ |e| [e.id] }) %>
+     <%= select_tag :searchb, options_for_select(@estagios.collect{ |e| [e.id] }) %>
+    <%= submit_tag "Pesquisar" %>
+  <% end %>
+    
+  <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= search_field_tag :search, params[:search], placeholder: "CPF" %>
+  <% end %>
+  
+  <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= search_field_tag :searchnome, params[:searchnome], placeholder: "Nome" %>
+  <% end %>
+    
+  <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= search_field_tag :searchins, params[:searchins], placeholder: "Inscrição" %>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Naturalidade</th>
-      <th>Sexo</th>
-      <th>Rg</th>
-      <th>Orgaoemissao</th>
-      <th>Cpf</th>
-      <th>Tel1</th>
-      <th>Tel2</th>
-      <th>Email</th>
-      <th>Cep</th>
-      <th>Logradouro</th>
-      <th>Num</th>
-      <th>Bairro</th>
-      <th>Cidade</th>
-      <th>Estado</th>
-      <th>Area</th>
-      <th>Instituicao</th>
-      <th>Curso</th>
-      <th>Necesp</th>
-      <th>Desnecesp</th>
-      <th>Pag</th>
-      <th>Durcurso</th>
-      <th>Sem</th>
-      <th>Dtnasc</th>
-      <th>Dtemissao</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= select_tag :searchpag, options_for_select('Confirmada' => 'confirmada'), prompt: 'Doação', :onchange => "this.form.submit();" %>
+  <% end %>
+
+ <%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= select_tag :searcharea, options_for_select('Administração' => "administração", 'Contailidade' => "contabilidade", 'Direito' => "Direito", 'Informática' => "informática"), prompt: 'Área', :onchange => "this.form.submit();" %>
+  <% end %>
+
+<%= form_tag(estagios_path, :method => "get", id: "search-form") do %>
+    <%= select_tag :searchsexo, options_for_select('Feminino' => "feminino", 'Masculino' => "masculino"), prompt: 'Sexo', :onchange => "this.form.submit();" %>
+  <% end %>
+
+  <% if @estagios.present? %>
+    <%= link_to 'Voltar', method: :index %>
+    <% else %>
+      <p>Não foram encontrados resultados.</p>
+      <%= link_to 'Voltar', method: :index %>
+  <% end %>
+</p>
+
+  <% else %>
+  <h1>Processo Seletivo para Estagiários da Justiça Federal da 1ª Região
+    Seção Judiária do Amapá</h1>
+  <h2>Suas Inscrições</h2>
+<% end %>
+
+<p><%= render "estagios/navbar"%></p>
+
+<% if @estagios.blank? and not current_user.admin? and not current_user.admin2? %>
+<p>No momento você ainda não possui nenhuma inscrição.</p>
+<p>
+  Para efetuar sua inscrição clique em <%= link_to 'Realizar inscrição', new_estagio_path, :class => "links" %>
+</p>
+
+<% else if not current_user.admin? and not current_user.admin2? %>
+  <table class="lista-inscritos">
+    <thead>
+      <tr>
+      	<th>Inscrição</th>
+      	<th>Nome</th>
+      	<th>Sexo</th>
+      	<th>RG</th>
+      	<th>CPF</th>
+      	<th>Área</th>
+      	<th>Curso</th>
+      	<th>Portador de Necessidades Especiais</th>
+      	<th>Doação</th>
+      	<th colspan="4">Opções</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @estagios.each do |estagio| %>
+		<tr>
+		  <td><%= estagio.numero_inscricao %></td>
+		  <td><%= estagio.nomeformat %></td>
+		  <td><%= estagio.sexo %></td>
+		  <td><%= estagio.rg %></td>
+		  <td><%= estagio.cpfformat %></td>
+		  <td><%= estagio.area %></td>
+		  <td><%= estagio.curso %></td>
+		  <td><%= estagio.necEsp %></td>
+		  <td><%= estagio.pag %></td>
+			<td>
+			  <%= link_to image_tag("info",
+				  onmouseover: "this.src='#{asset_path('info_hover')}'",
+				  onmouseout:  "this.src='#{asset_path('info')}'"),
+				  estagio, title: "Ver detalhes"  %>
+			  <%#= link_to 'Ver detalhes', estagio %>
+			</td>
+			<td>
+			  <%= link_to image_tag("edit",
+			      onmouseover: "this.src='#{asset_path('edit_hover')}'",
+			      onmouseout:  "this.src='#{asset_path('edit')}'"),
+			      edit_estagio_path(estagio), title: "Editar dados" %>
+			  <%#= link_to 'Editar dados', edit_estagio_path(estagio) %>
+			</td>
+			<td>
+			  <%= link_to image_tag("file"), export_estagio_path(estagio),
+			      title: "Emitir Comprovante de Inscrição", class: "icones", target: "_blank" %>
+			  <%#= link_to 'Comprovante de Inscrição', export_estagio_path(estagio),
+			       target: "_blank" %>
+			</td>
+		</tr>
+      <% end %>
+    </tbody>
+  </table> 
+<% end %>
+<% end %>
+
+<% if not @estagios.blank? and current_user.admin? %>
+<p>Resultado: <%= @a %></p>
+  <table class="lista-inscritos">
+    <thead>
+      <tr>
+        <th>Inscrição</th>
+        <th>Nome</th>
+        <th>Sexo</th>
+        <th>CPF</th>
+        <th>Área</th>
+        <th>Curso</th>
+        <th>SA/DC</th>
+        <th>Portador de Necessidades Especiais</th>
+        <th>Doação</th>
+        <th colspan="4">Opções</th>
+      </tr>
+    </thead>
 
   <tbody>
     <% @estagios.each do |estagio| %>
+    <% @a = @a + 1%>
       <tr>
-        <td><%= estagio.nome %></td>
-        <td><%= estagio.naturalidade %></td>
-        <td><%= estagio.sexo %></td>
-        <td><%= estagio.rg %></td>
-        <td><%= estagio.orgaoEmissao %></td>
-        <td><%= estagio.cpf %></td>
-        <td><%= estagio.tel1 %></td>
-        <td><%= estagio.tel2 %></td>
-        <td><%= estagio.email %></td>
-        <td><%= estagio.cep %></td>
-        <td><%= estagio.logradouro %></td>
-        <td><%= estagio.num %></td>
-        <td><%= estagio.bairro %></td>
-        <td><%= estagio.cidade %></td>
-        <td><%= estagio.estado %></td>
-        <td><%= estagio.area %></td>
-        <td><%= estagio.instituicao %></td>
+		<td><%= estagio.numero_inscricao %></td>
+		    <td><%= estagio.nomeformat %></td>
+		    <td><%= estagio.sexo %></td>
+		    <td><%= estagio.cpfformat %></td>
+		    <td><%= estagio.area %></td>
         <td><%= estagio.curso %></td>
-        <td><%= estagio.necEsp %></td>
-        <td><%= estagio.desNecEsp %></td>
-        <td><%= estagio.pag %></td>
-        <td><%= estagio.durCurso %></td>
-        <td><%= estagio.sem %></td>
-        <td><%= estagio.dtNasc %></td>
-        <td><%= estagio.dtEmissao %></td>
-        <td><%= link_to 'Show', estagio %></td>
-        <td><%= link_to 'Edit', edit_estagio_path(estagio) %></td>
-        <td><%= link_to 'Destroy', estagio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= estagio.sem %>/<%= estagio.durCurso %> </td>
+		    <td><%= estagio.necEsp %></td>
+		    <td>
+		  <% if current_user.admin? and estagio.pag == "Pendente" or estagio.pag.blank?  %>
+        Pendente
+		  <% else %>
+			  <%= estagio.pag %>
+		  <% end %>
+		</td>
+		<td>
+		  <%= link_to image_tag("info",
+		      onmouseover: "this.src='#{asset_path('info_hover')}'",
+		      onmouseout:  "this.src='#{asset_path('info')}'"),
+		      estagio, title: "Ver detalhes"  %>
+		  <%#= link_to 'Ver detalhes', estagio %>
+		</td>
+		<td>
+	      <%= link_to image_tag("edit",
+	          onmouseover: "this.src='#{asset_path('edit_hover')}'",
+	          onmouseout:  "this.src='#{asset_path('edit')}'"),
+	          edit_estagio_path(estagio), title: "Editar dados" %>
+	      <%#= link_to 'Editar dados', edit_estagio_path(estagio) %>
+		</td>
+		<td>
+	      <%= link_to image_tag("file"), export_estagio_path(estagio),
+	          title: "Emitir Comprovante de Inscrição", class: "icones", target: "_blank" %>
+	      <%#= link_to 'Comprovante de Inscrição', export_estagio_path(estagio),
+	           target: "_blank" %>
+		</td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 
-<%= link_to 'New Estagio', new_estagio_path %>
+<% if current_user.admin? %>
+  <%= link_to 'Nova Inscrição', new_estagio_path %>
+  <%= link_to 'Lista Inscritos Confirmados', estagio_exportinscritos_path, target: "_blank"%>
+<% end %>
+
+
+<% if not @estagios.blank? and current_user.admin2? %>
+<p>Resultado: <%= @a %></p>
+  <table class="lista-inscritos">
+    <thead>
+      <tr>
+	<th>Inscrição</th>
+	<th>Nome</th>
+  <th>CPF</th>
+	<th>Área</th>
+	<th>Curso</th>
+	<th>Doação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @estagios.each do |estagio| %>
+      <% @a = @a + 1%>
+	<tr>
+	  <td><%= estagio.numero_inscricao %></td>
+	  <td><%= estagio.nomeformat %></td>
+    <td><%= estagio.cpfformat %></td>
+	  <td><%= estagio.area %></td>
+	  <td><%= estagio.curso %></td>
+	  <td>
+	    <% if current_user.admin2? and estagio.pag == "Pendente" or estagio.pag.blank? %>
+	      Pendente
+	    <% else %>
+	      <%= estagio.pag %>
+	    <% end %>
+	  </td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

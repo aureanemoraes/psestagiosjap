@@ -5,10 +5,42 @@ class ApplicationPolicy
     @user = user
     @record = record
   end
- 
+
+  def index?
+    false
+  end
+
+  def show?
+    scope.where(:id => record.id).exists?
+  end
+
+  def create?
+    false
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    false
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    reset_session
+    redirect_to "/users/sign_in", notice: "Você foi deslogado"
+  end
+
+  def scope
+    Pundit.policy_scope!(user, record.class)
+  end
+
   class Scope
     attr_reader :user, :scope
-
 
     def initialize(user, scope)
       @user = user

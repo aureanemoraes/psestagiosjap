@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_142146) do
+ActiveRecord::Schema.define(version: 2018_08_30_125210) do
 
   create_table "estagios", force: :cascade do |t|
     t.string "nome"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2018_08_28_142146) do
     t.string "dtEmissao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_estagios_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,6 +52,13 @@ ActiveRecord::Schema.define(version: 2018_08_28_142146) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.boolean "admin"
+    t.boolean "admin2"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

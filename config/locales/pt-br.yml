@@ -1,0 +1,78 @@
+pt-BR:
+  estagios:
+    new:
+      title: Formulário de Inscrição
+    show:
+      title: Dados da Inscrição
+  user:
+    new:
+      title: Usuário
+
+  links:
+    back: Voltar
+    cancel: Cancelar
+    click: Clique Aqui
+    destroy: Apagar
+    edit: Editar
+    home: Página Inicial
+    logout: Sair
+    new: Novo
+    show: Exibir
+
+  layout:
+    estagios: Estagios
+
+  activerecord:
+    models:
+      estagios: Estágio
+      users: Usuário
+    attributes:
+        estagio:
+          pag: Doação
+          nome: Nome Completo
+          dtNasc: Data de Nascimento
+          naturalidade: Cidade de Nascimento
+          sexo: Sexo
+          rg: RG
+          dtEmissao: Data de Emissão
+          orgaoEmissao: Orgão Emissor
+          cpf: CPF
+          tel1: Telefone (Principal)
+          tel2: Telefone (Recado)
+          email: E-mail
+          cep: CEP
+          logradouro: Logradouro
+          num: Número
+          bairro: Bairro
+          cidade: Cidade
+          estado: Estado
+          area: Área
+          instituicao: Instituição
+          curso: Curso
+          necEsp: Portador de Necessidades Especiais
+          desNecEsp: Descrição de necessidade para realização da prova
+          numInsc: Inscrição
+          durCurso: Duração do Curso (semestres)
+          sem: Semestre Atual
+
+
+    estagios:
+      show:
+        title:
+        back: Voltar
+        cancel: Cancelar
+        destroy: Apagar
+        edit: Editar
+        home: Página Inicial
+        logout: Sair
+        new: Novo
+        show: Exibir
+    links:
+      back: Voltar
+      cancel: Cancelar
+      destroy: Apagar
+      edit: Editar
+      new: Novo
+      show: Exibir
+      
+

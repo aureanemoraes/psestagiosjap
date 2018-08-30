@@ -1,0 +1,22 @@
+"pt-BR":
+  breadcrumbs:
+    application:
+      root: "Index"
+    pages:
+      pages: "Pages"
+  helpers:
+    actions: "Actions"
+    links:
+      back: "Voltar"
+      cancel: "Cancelar"
+      confirm: "Você tem Certeza disso?"
+      destroy: "Apagar"
+      new: "Novo"
+      edit: "Alterar"
+    titles:
+      edit: "Alterar %{model}"
+      save: "Salvar %{model}"
+      new: "Novo %{model}"
+      delete: "Apagar %{model}"
+    buttons:
+      create: "Criar"

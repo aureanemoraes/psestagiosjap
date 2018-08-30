@@ -1,142 +1,243 @@
-<%= form_with(model: estagio, local: true) do |form| %>
-  <% if estagio.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(estagio.errors.count, "error") %> prohibited this estagio from being saved:</h2>
+<%= form_for @estagio, :html => { :id => "formulario" } do |f| %>
 
+  <% if @estagio.errors.any? %>
+    <div id="error_explanation">
+      <h3 class="panel-title">
+        Os seguintes erros foram encontrados
+      </h3>
+    </div>
+    <div class="panel-body">
       <ul>
-      <% estagio.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% @estagio.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+  
+  <% if current_user.admin? %>
+    <div class="field">
+      <div class="label">
+	<%= f.label :pag %>
+      </div>
+      <%= f.select :pag, ['Pendente', 'Confirmada'],:class => 'input' %>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
-  </div>
+  <% if @estagio.pag == "Pendente" or @estagio.pag.blank? or current_user.admin? %>
+    <h2>Dados Pessoais</h2>
+    <div class="field">
+      <div class="label">
+	<%= f.label :nome %>
+      </div>
+      <%= f.text_field :nome, :class => 'input', required: true, pattern: "[A-Za-zÀ-ú ']+$", maxlength: 100 %>
+    </div>
 
-  <div class="field">
-    <%= form.label :naturalidade %>
-    <%= form.text_field :naturalidade %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :dtNasc %>
+      </div>
+      <%= f.text_field :dtNasc, :class => 'input', placeholder: 'ddmmaaa (ex.: 18121996)', required: true, maxlength: 8, pattern: "[0-9\-\]+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :sexo %>
-    <%= form.text_field :sexo %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :naturalidade %>
+      </div>
+      <%= f.text_field :naturalidade, :class => 'input', required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :rg %>
-    <%= form.text_field :rg %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :sexo %>
+      </div>
+      <%= f.select :sexo, [
+	'Selecione', 'Feminino', 'Masculino'],
+	:class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :orgaoEmissao %>
-    <%= form.text_field :orgaoEmissao %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :rg %>
+      </div>
+      <%= f.text_field :rg, :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :dtEmissao %>
+      </div>
+      <%= f.text_field :dtEmissao, :class => 'input', placeholder: 'ddmmaaa (ex.: 18121996)', required: true, maxlength: 8, pattern: "[0-9\-\]+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :tel1 %>
-    <%= form.text_field :tel1 %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :orgaoEmissao %>
+      </div>
+      <%= f.text_field :orgaoEmissao, :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :tel2 %>
-    <%= form.text_field :tel2 %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :cpf %>
+      </div>
+      <%= f.text_field :cpf, :class => 'input', placeholder: 'ex.: 88899955500', required: true, maxlength: 11, pattern: "[0-9\-\]+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :tel1 %>
+      </div>
+      <%= f.text_field :tel1, :class => 'input', placeholder: 'ex.: 96988110011', required: true, maxlength: 11, pattern: "[0-9\-\]+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :cep %>
-    <%= form.text_field :cep %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :tel2 %>
+      </div>
+      <%= f.text_field :tel2, :class => 'input', placeholder: 'ex.: 96988110011', required: true, maxlength: 11, pattern: "[0-9\-\]+$" %>
+    </div>
+    
+<% if current_user.admin? or current_user.admin2? %>
+    <div class="field">
+      <div class="label">
+	       <%= f.label :email %>
+      </div>
+      <%= f.text_field :email, :class => 'input' %>
+    </div>
+<% else %>
+    <div class="field">
+      <div class="label">
+	       <%= f.label :email %>
+      </div>
+      <%= f.text_field :email, :class => 'input', value: current_user.email %>
+    </div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :logradouro %>
-    <%= form.text_field :logradouro %>
-  </div>
 
-  <div class="field">
-    <%= form.label :num %>
-    <%= form.text_field :num %>
-  </div>
+    <h2>Endereço</h2>
+    <div class="field">
+      <div class="label">
+	<%= f.label :cep %>
+      </div>
+      <%= f.text_field :cep, :class => 'input', required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :bairro %>
-    <%= form.text_field :bairro %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :logradouro %>
+      </div>
+      <%= f.text_field :logradouro, :class => 'input', placeholder: 'Av. João das Neves', required: true, maxlength: 100 %>
+    </div>
 
-  <div class="field">
-    <%= form.label :cidade %>
-    <%= form.text_field :cidade %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :num %>
+      </div>
+      <%= f.text_field :num, :class => 'input', required: true, maxlength: 50, pattern: "[0-9\-\]+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :estado %>
-    <%= form.text_field :estado %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :bairro %>
+      </div>
+      <%= f.text_field :bairro, :class => 'input', required: true, maxlength: 50, pattern: "[A-Za-zÀ-ú ']+$" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :area %>
-    <%= form.text_field :area %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :cidade %>
+      </div>
+      <%= f.select :cidade, ['Selecione', 'Amapá', 'Calçoene', 'Cutias', 'Ferreira Gomes', 'Itaubal', 'Laranjal do Jari', 'Macapá', 'Mazagão', 'Oiapoque', 'Pedra Branca do Amapari', 'Porto Grande', 'Pracuúba', 'Santana', 'Serra do Navio', 'Tartarugalzinho', 'Vitória do Jari'], :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :instituicao %>
-    <%= form.text_field :instituicao %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :estado %>
+      </div>
+      <%= f.select :estado, ['Selecione', 'Amapá'], :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :curso %>
-    <%= form.text_field :curso %>
-  </div>
+    <h2>Estágio</h2>
+    <div class="field">
+      <div class="label">
+	<%= f.label :area %>
+      </div>
+      <%= f.select :area, ['Selecione', 'Administração', 'Contabilidade', 'Direito', 'Informática'],:class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :necEsp %>
-    <%= form.text_field :necEsp %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :instituicao %>
+      </div>
+      <%= f.select :instituicao, ['Selecione', 'Ceap', 'Fabran', 'Fama', 'Famap', 'Ifap', 'Seama', 'Unifap'], :class => 'input' %>    
+    </div>
 
-  <div class="field">
-    <%= form.label :desNecEsp %>
-    <%= form.text_field :desNecEsp %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :curso %>
+      </div>
+      <%= f.select :curso, ['Selecione', 'Administração', 'Ciência da Computação', 'Ciências Contábeis', 'CST em Redes de Computadores', 'Direito', 
+      'Gestão da Tecnologia da Informação', 'Licenciatura em Informática', 'Sistemas de Informação'],:class => 'input' %>
+      </div>
+    
+    <div class="field">
+      <div class="label">
+	<%= f.label :durCurso %>
+      </div>
+      <%= f.select :durCurso, ['Selecione', 4, 5, 6, 7, 8, 9, 10], :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :pag %>
-    <%= form.text_field :pag %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :sem %>
+      </div>
+      <%= f.select :sem, ['Selecione', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], :class => 'input' %>
+    </div>
+    
+    <div class="field">
+      <div class="label">
+	<%= f.label :necEsp %>
+      </div>
+      <%= f.select :necEsp, ['Selecione', 'Sim', 'Não'], :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :durCurso %>
-    <%= form.text_field :durCurso %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :desNecEsp %>
+      </div>
+      <%= f.text_field :desNecEsp, :class => 'input', placeholder: 'Preencher este campo em caso de ser portador de necessidades especiais.' %>
+    </div>
+    
+    
+  <% else %>
+    <h2>Dados Pessoais</h2>
+    <div class="field">
+      <div class="label">
+	<%= f.label :tel1 %>
+      </div>
+      <%= f.text_field :tel1, :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :sem %>
-    <%= form.text_field :sem %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :tel2 %>
+      </div>
+      <%= f.text_field :tel2, :class => 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :dtNasc %>
-    <%= form.text_field :dtNasc %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dtEmissao %>
-    <%= form.text_field :dtEmissao %>
-  </div>
+    <div class="field">
+      <div class="label">
+	<%= f.label :email %>
+      </div>
+      <%= f.text_field :email, :class => 'input' %>
+    </div>
+  <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit nil, :class => 'button' %>
+    <%= link_to t('links.cancel', :default => t("helpers.links.cancel")),
+                estagios_path, :class => 'button' %>
   </div>
+</div>
 <% end %>

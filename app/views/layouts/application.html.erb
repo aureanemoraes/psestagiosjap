@@ -1,21 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <title>Psestagiosjap</title>
+    <title>Seleção de Estagiários - 2018</title>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag %>
+    <%= stylesheet_link_tag 'application',
+          media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',
+          'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <%= yield %>
+    <header>
+      <div id="header-wrap">
+        <%= image_tag("logo.png",
+          html: { title: "Justiça Federal - Seção Judiária do Amapá" } ) %>
+      </div><!-- div id="header-wrap" -->
+      <nav>
+        <div id="menu">
+          <ul>
+            <li><%= link_to "Página Inicial", inicials_path %></li>
+            <li><%= link_to "Portal da Justiça Federal",
+                            "http://portal.trf1.jus.br/sjap" %></li>
+            <li><%= link_to "Edital e mais informações", "http://portal.trf1.jus.br/sjap/concursos/estagios/ps-secao-judiciaria-do-amapa-2018.htm" %></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div id="content">
+
+      <% if notice.present? %>
+        <u><p id="notice"><%= notice %></p></u>
+      <% end %>
+      <% if alert.present? %>
+        <p id="alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </div><!-- div id="content" -->
+
+    <!--div id="rodape">
+        <footer>
+            <p>Edifício-sede: Rodovia Norte-Sul, s/n, Bairro: Infraero II, Macapá-AP</p>
+            <p>CEP: 68908-911 Telefone: (96) 3214-1500</p>
+            <p>CNPJ: 05.426.574/0001-40</p>
+        </footer>
+    </div> <!/rodape -->
   </body>
 </html>

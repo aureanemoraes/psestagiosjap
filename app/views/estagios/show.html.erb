@@ -1,127 +1,53 @@
-<p>
-  <strong>Nome:</strong>
-  <%= @estagio.nome %>
-</p>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              estagios_path, :class => 'links'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_estagio_path(@estagio), :class => 'links' %>
+<%= link_to 'Comprovante de Inscrição', export_estagio_path(@estagio),
+	           :class => 'links2'%>
+<br/><br/>
+<%- model_class = Estagio -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Naturalidade:</strong>
-  <%= @estagio.naturalidade %>
-</p>
 
-<p>
-  <strong>Sexo:</strong>
-  <%= @estagio.sexo %>
-</p>
-
-<p>
-  <strong>Rg:</strong>
-  <%= @estagio.rg %>
-</p>
-
-<p>
-  <strong>Orgaoemissao:</strong>
-  <%= @estagio.orgaoEmissao %>
-</p>
-
-<p>
-  <strong>Cpf:</strong>
-  <%= @estagio.cpf %>
-</p>
-
-<p>
-  <strong>Tel1:</strong>
-  <%= @estagio.tel1 %>
-</p>
-
-<p>
-  <strong>Tel2:</strong>
-  <%= @estagio.tel2 %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @estagio.email %>
-</p>
-
-<p>
-  <strong>Cep:</strong>
-  <%= @estagio.cep %>
-</p>
-
-<p>
-  <strong>Logradouro:</strong>
-  <%= @estagio.logradouro %>
-</p>
-
-<p>
-  <strong>Num:</strong>
-  <%= @estagio.num %>
-</p>
-
-<p>
-  <strong>Bairro:</strong>
-  <%= @estagio.bairro %>
-</p>
-
-<p>
-  <strong>Cidade:</strong>
-  <%= @estagio.cidade %>
-</p>
-
-<p>
-  <strong>Estado:</strong>
-  <%= @estagio.estado %>
-</p>
-
-<p>
-  <strong>Area:</strong>
-  <%= @estagio.area %>
-</p>
-
-<p>
-  <strong>Instituicao:</strong>
-  <%= @estagio.instituicao %>
-</p>
-
-<p>
-  <strong>Curso:</strong>
-  <%= @estagio.curso %>
-</p>
-
-<p>
-  <strong>Necesp:</strong>
-  <%= @estagio.necEsp %>
-</p>
-
-<p>
-  <strong>Desnecesp:</strong>
-  <%= @estagio.desNecEsp %>
-</p>
-
-<p>
-  <strong>Pag:</strong>
-  <%= @estagio.pag %>
-</p>
-
-<p>
-  <strong>Durcurso:</strong>
-  <%= @estagio.durCurso %>
-</p>
-
-<p>
-  <strong>Sem:</strong>
-  <%= @estagio.sem %>
-</p>
-
-<p>
-  <strong>Dtnasc:</strong>
-  <%= @estagio.dtNasc %>
-</p>
-
-<p>
-  <strong>Dtemissao:</strong>
-  <%= @estagio.dtEmissao %>
-</p>
-
-<%= link_to 'Edit', edit_estagio_path(@estagio) %> |
-<%= link_to 'Back', estagios_path %>
+<dl class="dados-inscrito">
+  <dt><strong><%= model_class.human_attribute_name(:pag) %>:</strong><% if @estagio.pag.blank? %> <dd>Pendente</dd><% else %> <dd><%= @estagio.pag %> <% end %></dd> </dt>
+  <h2>Dados Pessoais</h2>
+  <dt><strong><%= model_class.human_attribute_name(:numInsc) %>:</strong> <dd><%= @estagio.numero_inscricao %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:nome) %>:</strong> <dd><%= @estagio.nomeformat %></dd> </dt> 
+  <dt><strong><%= model_class.human_attribute_name(:dtNasc) %>:</strong> <dd><%= @estagio.dtNascformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:naturalidade) %>:</strong> <dd><%= @estagio.naturalidadeformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:sexo) %>:</strong> <dd><%= @estagio.sexo %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:rg) %>:</strong> <dd><%= @estagio.rg %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:dtEmissao) %>:</strong> <dd><%= @estagio.dtEmissaoformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:orgaoEmissao) %>:</strong> <dd><%= @estagio.orgaoEmissaoformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong> <dd><%= @estagio.cpfformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:tel1) %>:</strong> <dd><%= @estagio.tel1format %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:tel2) %>:</strong> <dd><%= @estagio.tel2format %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong> <dd><%= @estagio.email %></dd> </dt>
+  <h2>Endereço</h2>
+  <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong> <dd><%= @estagio.cep %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:logradouro) %>:</strong> <dd><%= @estagio.logradouroformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:num) %>:</strong> <dd><%= @estagio.num %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:bairro) %>:</strong> <dd><%= @estagio.bairroformat %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:cidade) %>:</strong> <dd><%= @estagio.cidade %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:estado) %>:</strong> <dd><%= @estagio.estado %></dd> </dt>
+  <h2>Estágio</h2>
+  <dt><strong><%= model_class.human_attribute_name(:area) %>:</strong> <dd><%= @estagio.area %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:instituicao) %>:</strong> <dd><%= @estagio.instituicao %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:curso) %>:</strong> <dd><%= @estagio.curso %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:durCurso) %>:</strong> <dd><%= @estagio.durCurso %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:sem) %>:</strong> <dd><%= @estagio.sem %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:necEsp) %>:</strong> <dd><%= @estagio.necEsp %></dd> </dt>
+  <dt><strong><%= model_class.human_attribute_name(:desNecEsp) %>:</strong> <dd><%= @estagio.desNecEspformat %></dd> </dt>
+  
+</dl>
+</br>
+<br/>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              estagios_path, :class => 'links'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_estagio_path(@estagio), :class => 'links' %>
+<%= link_to 'Comprovante de Inscrição', export_estagio_path(@estagio),
+	           :class => 'links2'%>

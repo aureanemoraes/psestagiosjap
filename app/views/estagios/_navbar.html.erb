@@ -1,0 +1,13 @@
+<div id="navbar">
+  <nav>
+    <ul>
+      <li>
+        <%= link_to t('links.home'), estagios_path %>
+      </li>
+      <li>
+        <%= link_to t('links.logout'),
+         destroy_user_session_path, method: :delete %>
+      </li>
+    </ul>
+  </nav>
+</div>
