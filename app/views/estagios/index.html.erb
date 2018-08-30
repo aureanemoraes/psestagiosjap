@@ -1,4 +1,4 @@
-<% if current_user.admin? or current_user.admin2? %>
+<% if current_user.try(:admin?) or current_user.try(:admin2?) %>
   <h1>Lista Inscritos no PS Estágio SJAP</h1>
 
 <% @estagios.each do |estagio| %>
@@ -52,13 +52,13 @@
 
 <p><%= render "estagios/navbar"%></p>
 
-<% if @estagios.blank? and not current_user.admin? and not current_user.admin2? %>
+<% if @estagios.blank? and not current_user.try(:admin?) and not current_user.try(:admin2?) %>
 <p>No momento você ainda não possui nenhuma inscrição.</p>
 <p>
   Para efetuar sua inscrição clique em <%= link_to 'Realizar inscrição', new_estagio_path, :class => "links" %>
 </p>
 
-<% else if not current_user.admin? and not current_user.admin2? %>
+<% else if not current_user.try(:admin?) and not current_user.try(:admin2?) %>
   <table class="lista-inscritos">
     <thead>
       <tr>
@@ -114,7 +114,7 @@
 <% end %>
 <% end %>
 
-<% if not @estagios.blank? and current_user.admin? %>
+<% if not @estagios.blank? and current_user.try(:admin?) %>
 <p>Resultado: <%= @a %></p>
   <table class="lista-inscritos">
     <thead>
@@ -178,13 +178,13 @@
 <% end %>
 <br>
 
-<% if current_user.admin? %>
+<% if current_user.try(:admin?) %>
   <%= link_to 'Nova Inscrição', new_estagio_path %>
   <%= link_to 'Lista Inscritos Confirmados', estagio_exportinscritos_path, target: "_blank"%>
 <% end %>
 
 
-<% if not @estagios.blank? and current_user.admin2? %>
+<% if not @estagios.blank? and current_user.try(:admin2?) %>
 <p>Resultado: <%= @a %></p>
   <table class="lista-inscritos">
     <thead>

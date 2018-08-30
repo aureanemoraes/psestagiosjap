@@ -12,10 +12,10 @@ class EstagioPolicy < ApplicationPolicy
   #end
   class Scope < Scope
     def resolve
-      if user.admin? or user.admin2?
-	scope.all
+      if user.try(:admin?) or user.try(:admin2?)
+	      scope.all
       else
-	scope.where(user_id: user)
+	      scope.where(user_id: user)
       end
     end
   end
