@@ -1,6 +1,6 @@
 class EstagiosController < ApplicationController
   before_action :set_estagio, only: [:show, :edit, :update, :destroy, :export]
-  before_action :authenticate_user!, only: [:index, :show, :edit, :update, :export, :exportinscritos]
+  before_action :authenticate_user!, only: [:show, :edit, :update, :export, :exportinscritos]
   #before_action :authorize_comprovante, only: [:export]
   
   require './lib/generate_pdf'
